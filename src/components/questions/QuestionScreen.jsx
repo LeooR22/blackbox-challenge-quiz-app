@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { answerSelected, nextQuestions } from "../../actions/actions";
+import {
+  answerSelected,
+  arrSort,
+  filterData,
+  nextQuestions,
+} from "../../actions/actions";
 import PointsContext from "../../context/PointsContext";
 import { useFetch } from "../../hooks/useFetch";
+import { LoadingScreen } from "../LoadingScreen";
 import { Answers } from "./Answers";
 import { QuestionCard } from "./QuestionCard";
 
@@ -10,25 +16,12 @@ export const Questions = () => {
   const navigate = useNavigate();
 
   const { setPoints, points } = useContext(PointsContext);
-
   const { id } = useParams();
-
   const { data, loading } = useFetch();
-  if (loading)
-    return (
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "100vh" }}
-      >
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
 
-  const currentQuestion = data.filter(
-    (question) => question.id === parseInt(id)
-  );
+  if (loading) return <LoadingScreen />;
+
+  const currentQuestion = filterData(data, id);
 
   const {
     category,
@@ -39,11 +32,10 @@ export const Questions = () => {
     incorrect_answers,
   } = currentQuestion[0];
 
-  const all_answers = incorrect_answers.concat(correct_answer);
-  const sort_answers = all_answers.sort((a, b) => 0.5 - Math.random());
+  const sort_answers = arrSort(incorrect_answers, correct_answer);
 
   const handleAnswerSelection = (option) => {
-    answerSelected(option, type, correct_answer, points, setPoints);
+    answerSelected(option, correct_answer, points, setPoints, type);
 
     nextQuestions(data, id, navigate);
   };
