@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export const answerSelected = (
   opt,
   correct_answer,
@@ -10,21 +12,25 @@ export const answerSelected = (
       userPoints: points.userPoints + 10,
       quizPoints: points.quizPoints + 10,
     });
+    return Swal.fire("Correct answer !", "+ 10 points", "success");
   } else if (type === "boolean" && correct_answer === opt) {
     setPoints({
       userPoints: points.userPoints + 5,
       quizPoints: points.quizPoints + 5,
     });
+    return Swal.fire("Correct answer !", "+ 5 points", "success");
   } else if (type === "multiple") {
     setPoints({
       userPoints: points.userPoints + 0,
       quizPoints: points.quizPoints + 10,
     });
+    return Swal.fire("Incorrect answer !", "+ 0 points", "error");
   } else if (type === "boolean") {
     setPoints({
       userPoints: points.userPoints + 0,
       quizPoints: points.quizPoints + 5,
     });
+    return Swal.fire("Incorrect answer !", "+ 0 points", "error");
   }
 };
 
