@@ -1,7 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-// import DataContext from "../context/DataContext";
-import { useFetch } from "../hooks/useFetch";
 
 export const Lobby = () => {
   const navigate = useNavigate();
