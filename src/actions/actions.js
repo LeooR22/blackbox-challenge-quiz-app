@@ -1,6 +1,6 @@
 export const answerSelected = (
-  correct_answer,
   opt,
+  correct_answer,
   points,
   setPoints,
   type
@@ -10,36 +10,22 @@ export const answerSelected = (
       userPoints: points.userPoints + 10,
       quizPoints: points.quizPoints + 10,
     });
-    console.log("+10 +10");
   } else if (type === "boolean" && correct_answer === opt) {
     setPoints({
       userPoints: points.userPoints + 5,
       quizPoints: points.quizPoints + 5,
     });
-    console.log("+5 +5");
   } else if (type === "multiple") {
     setPoints({
       userPoints: points.userPoints + 0,
       quizPoints: points.quizPoints + 10,
     });
-    console.log("+0 +10");
   } else if (type === "boolean") {
     setPoints({
       userPoints: points.userPoints + 0,
       quizPoints: points.quizPoints + 5,
     });
-    console.log("+0 +5");
   }
-  // setPoints({
-  //   userPoints: points.userPoints + 0,
-  //   quizPoints: points.quizPoints + 5,
-  // });
-  console.log("+0 +5");
-  console.log(correct_answer);
-  console.log(opt);
-  console.log(points);
-  console.log(setPoints);
-  console.log(type);
 };
 
 export const nextQuestions = (data, id, navigate) => {
@@ -48,4 +34,12 @@ export const nextQuestions = (data, id, navigate) => {
   } else {
     navigate(`/questions/${parseInt(id) + 1}`);
   }
+};
+
+export const filterData = (arr, id) => {
+  return arr.filter((arr) => arr.id === parseInt(id));
+};
+
+export const arrSort = (arr1, str) => {
+  return arr1.concat(str).sort((a, b) => 0.5 - Math.random());
 };
