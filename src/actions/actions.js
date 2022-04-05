@@ -43,3 +43,5 @@ export const filterData = (arr, id) => {
 export const arrSort = (arr1, str) => {
   return arr1.concat(str).sort((a, b) => 0.5 - Math.random());
 };
+
+//git push
